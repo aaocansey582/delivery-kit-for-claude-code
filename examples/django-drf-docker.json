@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "project": {
+    "name": "campus-api",
+    "summary": "Django REST Framework backend in api/ (PostgreSQL, Celery, two app replicas behind nginx, zero-downtime deploys)",
+    "stack": ["django-drf"],
+    "sensitive_data": ["grades", "financial records", "personal data"],
+    "scope_boundaries": ["centre", "student", "user"]
+  },
+  "paths": {
+    "code": ["api/*"],
+    "exclude": ["api/docs/*", "*.md"],
+    "docs": ["api/docs/"],
+    "api_docs": ["api/docs/endpoints/", "api/docs/frontend/"],
+    "conventions": ["CLAUDE.md", "api/docs/architecture.md"],
+    "deployment_rules": "api/docs/deployment.md",
+    "plans": ["api/docs/*-plan.md"]
+  },
+  "tests": {
+    "command": "docker exec campus-dev-api pytest {target} -q",
+    "lane_command": "docker exec -e TEST_DB_NAME=test_{lane} campus-dev-api pytest {target} -q --reuse-db",
+    "match": "docker\\s+exec\\b.*\\bcampus-dev-api\\b.*\\bpytest\\b",
+    "full_suite": {
+      "command": "docker exec -e TEST_DB_NAME=test_full campus-dev-api pytest -q",
+      "note": "about 35 minutes and it shares the test database; run in the background only when asked"
+    }
+  },
+  "git": {
+    "main_branch": "main",
+    "integration_branch": "develop",
+    "commit": {
+      "single_line": true,
+      "subject_pattern": "^(feat|fix|docs|refactor|perf|test|build|ci|chore|revert)(\\([\\w./-]+\\))?!?: .+",
+      "forbid_patterns": ["co-authored-by"]
+    },
+    "pr": {
+      "forbid_patterns": ["generated with \\[?claude code"]
+    }
+  },
+  "guards": {
+    "secret_files": [".env", ".env.*", "api/.env"],
+    "secret_file_exceptions": [".env.example"]
+  },
+  "graph": {
+    "provider": "graphify",
+    "dir": "graphify-out",
+    "require_before_ship": true
+  },
+  "agents": {
+    "house_rules": [
+      "Views are thin: validate with a serializer, call a service, wrap the result in the response envelope.",
+      "Permissions use permission classes with a per-method permission map, plus object scope checks in services.",
+      "Never run Python on the host; use the container.",
+      "No comment lines in new code unless asked."
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "project": {
+    "name": "orders-api",
+    "summary": "Express 5 REST API in src/ (TypeScript) with Prisma (postgresql), Redis and BullMQ workers",
+    "stack": ["express", "prisma", "typescript"],
+    "sensitive_data": ["orders", "payments", "personal data"],
+    "scope_boundaries": ["merchant", "user"]
+  },
+  "paths": {
+    "code": ["src/*", "prisma/*", "scripts/*"],
+    "conventions": ["CLAUDE.md", "docs/conventions.md"],
+    "api_docs": ["openapi.yaml"],
+    "deployment_rules": "docs/deployment.md"
+  },
+  "tests": {
+    "command": "pnpm exec jest {target}",
+    "match": "\\bjest\\b|\\bpnpm\\b[^\\n;&|]*\\btest\\b",
+    "lane_command": "DATABASE_URL=postgresql://localhost:5432/test_{lane} pnpm exec jest {target}",
+    "checks": ["pnpm exec tsc --noEmit", "pnpm run lint"],
+    "full_suite": {"command": "pnpm test", "note": "needs the test database and Redis running"}
+  },
+  "data": {
+    "orm": "prisma",
+    "schema": "prisma/schema.prisma",
+    "migrations": "prisma/migrations/*",
+    "check_command": "pnpm exec prisma validate && pnpm exec prisma migrate status"
+  },
+  "git": {
+    "main_branch": "main",
+    "integration_branch": "develop",
+    "commit": {
+      "single_line": true,
+      "subject_pattern": "^(feat|fix|docs|refactor|perf|test|build|ci|chore|revert)(\\([\\w./-]+\\))?!?: .+"
+    }
+  },
+  "agents": {
+    "house_rules": [
+      "Routes are thin: validate with zod, call a service in src/services, return through the response helper.",
+      "Every Prisma write that spans more than one table runs in prisma.$transaction and uses tx inside it.",
+      "Errors are thrown as AppError subclasses and formatted only by the error middleware."
+    ]
+  }
+}

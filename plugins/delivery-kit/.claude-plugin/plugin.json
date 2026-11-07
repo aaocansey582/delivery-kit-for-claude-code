@@ -1,0 +1,24 @@
+{
+  "name": "delivery-kit",
+  "version": "0.1.0",
+  "description": "Take a change from request to merge with gates: a tracked engineering lifecycle, convention-aware API review, architecture assessment and multi-agent design proposals, driven by a per-project profile it detects for you. Tuned for Next.js, Express and Prisma (including monorepos), with Django support. Requires the ECC plugin.",
+  "author": {
+    "name": "aaocansey"
+  },
+  "dependencies": [
+    "ecc@ecc"
+  ],
+  "keywords": [
+    "workflow",
+    "lifecycle",
+    "code-review",
+    "tdd",
+    "hooks",
+    "api-review",
+    "architecture",
+    "nextjs",
+    "express",
+    "prisma",
+    "monorepo"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "project": {
+    "name": "acme",
+    "summary": "pnpm + Turborepo monorepo: Next.js app (App Router) in apps/web/, Express API in apps/api/, Prisma (postgresql) in packages/db/, shared zod schemas in packages/contracts/",
+    "stack": ["nextjs", "express", "prisma", "typescript"],
+    "sensitive_data": ["invoices", "payments", "personal data"],
+    "scope_boundaries": ["organisation", "user"]
+  },
+  "paths": {
+    "conventions": ["CLAUDE.md", "docs/architecture.md"],
+    "api_docs": ["apps/api/openapi.yaml"],
+    "docs": ["docs/"]
+  },
+  "tests": {
+    "suites": [
+      {
+        "name": "web",
+        "paths": ["apps/web/*"],
+        "command": "cd apps/web && pnpm exec vitest run {target}",
+        "match": "(?=[\\s\\S]*(apps/web|@acme/web))[\\s\\S]*(\\bvitest\\b|\\bpnpm\\b[^\\n;&|]*\\btest\\b)"
+      },
+      {
+        "name": "api",
+        "paths": ["apps/api/*"],
+        "command": "cd apps/api && pnpm exec jest {target}",
+        "match": "(?=[\\s\\S]*(apps/api|@acme/api))[\\s\\S]*(\\bjest\\b|\\bpnpm\\b[^\\n;&|]*\\btest\\b)"
+      },
+      {
+        "name": "db",
+        "paths": ["packages/db/*"],
+        "command": "cd packages/db && pnpm exec vitest run {target}",
+        "match": "(?=[\\s\\S]*(packages/db|@acme/db))[\\s\\S]*(\\bvitest\\b|\\bpnpm\\b[^\\n;&|]*\\btest\\b)"
+      },
+      {
+        "name": "contracts",
+        "paths": ["packages/contracts/*"],
+        "command": "pnpm turbo run test --filter=...@acme/contracts",
+        "match": "\\bturbo\\b.*\\btest\\b.*@acme/contracts"
+      }
+    ],
+    "checks": ["pnpm run typecheck", "pnpm run lint"],
+    "e2e_command": "cd apps/web && pnpm exec playwright test"
+  },
+  "data": {
+    "orm": "prisma",
+    "schema": "packages/db/prisma/schema.prisma",
+    "migrations": "packages/db/prisma/migrations/*",
+    "check_command": "cd packages/db && pnpm exec prisma validate && pnpm exec prisma migrate status"
+  },
+  "git": {
+    "main_branch": "main",
+    "commit": {
+      "subject_pattern": "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\((web|api|db|contracts|repo)\\))?!?: .+"
+    }
+  },
+  "guards": {
+    "protected_paths": {}
+  },
+  "agents": {
+    "house_rules": [
+      "Only packages/db imports PrismaClient; apps call its repository functions.",
+      "Request and response shapes come from packages/contracts; don't redefine them in an app.",
+      "Changing packages/contracts means running the dependants' tests too (the contracts suite does this via turbo)."
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "project": {
+    "name": "shopfront",
+    "summary": "Next.js app (App Router) with Server Actions and route handlers; Prisma (postgresql); deployed on Vercel",
+    "stack": ["nextjs", "prisma", "typescript"],
+    "sensitive_data": ["orders", "payment records", "customer personal data"],
+    "scope_boundaries": ["store", "customer"]
+  },
+  "paths": {
+    "conventions": ["CLAUDE.md", "docs/architecture.md"],
+    "api_docs": ["docs/api/"],
+    "deployment_rules": "docs/deployment.md"
+  },
+  "tests": {
+    "command": "npx vitest run {target}",
+    "match": "\\bvitest\\b|\\b(npm|pnpm|yarn|bun)\\b[^\\n;&|]*\\btest\\b",
+    "checks": ["npx tsc --noEmit", "npm run lint"],
+    "e2e_command": "npx playwright test",
+    "full_suite": {"command": "npx vitest run", "note": "fine to run, but prefer targeted files while iterating"}
+  },
+  "data": {
+    "orm": "prisma",
+    "schema": "prisma/schema.prisma",
+    "migrations": "prisma/migrations/*",
+    "check_command": "npx prisma validate && npx prisma migrate status"
+  },
+  "git": {
+    "main_branch": "main",
+    "commit": {
+      "subject_pattern": "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([\\w./@-]+\\))?!?: .+"
+    }
+  },
+  "agents": {
+    "house_rules": [
+      "Every Server Action and route handler checks the session and ownership itself; middleware is not an authorization layer.",
+      "Prisma queries returned to the client use select; never return whole models.",
+      "Validate all inputs with zod schemas from src/lib/validation."
+    ]
+  }
+}

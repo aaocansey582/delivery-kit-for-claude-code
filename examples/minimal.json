@@ -1,0 +1,6 @@
+{
+  "tests": {
+    "command": "pytest {target} -q",
+    "match": "\\bpytest\\b"
+  }
+}

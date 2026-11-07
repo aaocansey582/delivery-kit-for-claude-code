@@ -1,0 +1,19 @@
+{
+  "name": "delivery-kit",
+  "owner": {
+    "name": "aaocansey"
+  },
+  "metadata": {
+    "description": "Engineering delivery workflow for Claude Code: lifecycle gates, reviews and proposals, configured per project."
+  },
+  "plugins": [
+    {
+      "name": "delivery-kit",
+      "source": "./plugins/delivery-kit",
+      "description": "Tracked fix/feature lifecycle with test and review gates, convention-aware API review, architecture assessment and design proposals. Requires ECC.",
+      "version": "0.1.0",
+      "category": "workflow",
+      "keywords": ["workflow", "lifecycle", "code-review", "hooks"]
+    }
+  ]
+}
