@@ -69,6 +69,15 @@ Full walkthrough: [docs/setup.md](docs/setup.md).
 - [Roadmap](docs/roadmap.md)
 - [Contributing](CONTRIBUTING.md)
 
+## Credits
+
+delivery-kit is glue around two excellent projects, and wouldn't be useful without them:
+
+- **[ECC (Everything Claude Code)](https://github.com/affaan-m/ECC)** by [Affaan Mustafa](https://x.com/affaanmustafa) ([ecc.tools](https://ecc.tools), MIT license). Its agents (architect, planner, code explorer, and the security, database and stack reviewers) do the specialist work that delivery-kit's skills coordinate and verify.
+- **[Graphify](https://github.com/Graphify-Labs/graphify)** by Safi Shamsi and the Graphify contributors ([graphify.com](https://graphify.com), Apache-2.0 license). Its code knowledge graph is what the skills query before searching source.
+
+delivery-kit doesn't bundle or modify either project. Install them from their own sources, under their own licenses. Thanks to their authors and contributors.
+
 ## Repository layout
 
 ```

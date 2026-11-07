@@ -1,6 +1,6 @@
 # Graphify integration
 
-[Graphify](https://pypi.org/project/graphifyy/) turns a codebase into a knowledge graph. It builds `graphify-out/graph.json`, a `GRAPH_REPORT.md`, and optionally a wiki, all describing modules, communities, hub ("god") nodes and cross-file relationships. Claude can then ask the graph a scoped question instead of grepping the whole tree. That's faster and uses far fewer tokens, especially in subagents that start with no context.
+[Graphify](https://github.com/Graphify-Labs/graphify), by Safi Shamsi and the Graphify contributors ([graphify.com](https://graphify.com), [docs](https://docs.graphify.com), Apache-2.0, published on PyPI as [`graphifyy`](https://pypi.org/project/graphifyy/)), turns a codebase into a knowledge graph. It builds `graphify-out/graph.json`, a `GRAPH_REPORT.md`, and optionally a wiki, all describing modules, communities, hub ("god") nodes and cross-file relationships. Claude can then ask the graph a scoped question instead of grepping the whole tree. That's faster and uses far fewer tokens, especially in subagents that start with no context.
 
 delivery-kit doesn't install or replace Graphify. It works with your Graphify setup:
 

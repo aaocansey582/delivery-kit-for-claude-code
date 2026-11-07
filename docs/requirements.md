@@ -8,7 +8,7 @@
 | Python 3.9+ as `python3` | Hooks and the `delivery-kit` CLI. Standard library only, no `pip install` | `python3 --version` |
 | Git | Diff-based review targets, branch checks, gitignore checks | `git --version` |
 | A POSIX shell (`sh`) | The `bin/delivery-kit` wrapper | Linux, macOS and WSL have one. On native Windows, run Claude Code inside WSL or Git Bash |
-| The ECC plugin | The skills delegate to ECC agents: `ecc:architect`, `ecc:planner`, `ecc:code-explorer`, `ecc:code-reviewer`, `ecc:security-reviewer`, `ecc:database-reviewer`, `ecc:silent-failure-hunter`, `ecc:tdd-guide`, and a stack reviewer such as `ecc:django-reviewer` | `delivery-kit doctor` |
+| The [ECC](https://github.com/affaan-m/ECC) plugin by Affaan Mustafa | The skills delegate to ECC agents: `ecc:architect`, `ecc:planner`, `ecc:code-explorer`, `ecc:code-reviewer`, `ecc:security-reviewer`, `ecc:database-reviewer`, `ecc:silent-failure-hunter`, `ecc:tdd-guide`, and a stack reviewer such as `ecc:django-reviewer` | `delivery-kit doctor` |
 
 delivery-kit declares ECC as a dependency (`"dependencies": ["ecc@ecc"]` in its `plugin.json`). Claude Code can only resolve that if the ECC marketplace is already added, so add it before installing delivery-kit (see [setup](setup.md#1-install-ecc)). If ECC is missing anyway, the skills still run, but Claude does the agents' work alone and says so in its report, so reviews are shallower.
 
