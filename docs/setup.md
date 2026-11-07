@@ -15,11 +15,13 @@ Restart Claude Code, then run `/plugin` and confirm `ecc` is enabled.
 
 ## 2. Add the delivery-kit marketplace
 
-This repository is its own marketplace. Add it from wherever your team hosts it:
+This repository is its own marketplace:
 
 ```text
-/plugin marketplace add <git-url-of-this-repo>
+/plugin marketplace add https://github.com/aaocansey582/delivery-kit-for-claude-code.git
 ```
+
+If your team keeps its own fork or mirror, add that URL instead.
 
 You can also add it from a local checkout, which is useful while developing the plugin:
 

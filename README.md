@@ -1,4 +1,6 @@
-# delivery-kit
+# delivery-kit for Claude Code
+
+A community plugin for [Claude Code](https://claude.com/claude-code), not affiliated with or endorsed by Anthropic.
 
 A Claude Code plugin that takes a change from request to merge with the checks a careful engineer would apply: understand the code, plan, write tests first, review, then ship. Hooks enforce the important parts, so they don't rely on the model remembering.
 
@@ -40,7 +42,7 @@ Details: [docs/requirements.md](docs/requirements.md).
 ## Quick start
 
 ```text
-/plugin marketplace add <git-url-or-path-of-this-repo>
+/plugin marketplace add https://github.com/aaocansey582/delivery-kit-for-claude-code.git
 /plugin install delivery-kit@delivery-kit
 ```
 

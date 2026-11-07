@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "Take a change from request to merge with gates: a tracked engineering lifecycle, convention-aware API review, architecture assessment and multi-agent design proposals, driven by a per-project profile it detects for you. Tuned for Next.js, Express and Prisma (including monorepos), with Django support. Requires the ECC plugin.",
   "author": {
-    "name": "aaocansey"
+    "name": "aaocansey582",
+    "url": "https://github.com/aaocansey582"
   },
+  "homepage": "https://github.com/aaocansey582/delivery-kit-for-claude-code",
+  "repository": "https://github.com/aaocansey582/delivery-kit-for-claude-code",
   "dependencies": [
     "ecc@ecc"
   ],
